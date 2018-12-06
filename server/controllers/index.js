@@ -8,8 +8,9 @@ module.exports = {
 
   users: {
     // Ditto as above
+    // req.body.username = valjean
     get: function (req, res) {},
-    post: function (req, res) {}
+    post: function (req, res) {console.log(req);}
   }
 };
 
