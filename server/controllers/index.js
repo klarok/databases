@@ -12,7 +12,7 @@ module.exports = {
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       console.log(req.body, 'post messages');
-      models.messages.post((err) => {
+      models.messages.post(req.body, (err) => {
         if (err) throw err;
         res.send('message posted');
       });
@@ -23,11 +23,16 @@ module.exports = {
     // Ditto as above
     // req.body.username = valjean
     get: function (req, res) {
-      res.send('user get');
+      models.users.get(req.body.username, (err) => {
+        if (err) throw err;
+        res.send('user get');
+      });
     },
     post: function (req, res) {
-      // console.log(req);
-      res.send('user post');
+      models.users.post(req.body.username, (err) => {
+        if (err) throw err;
+        res.send('added user');
+      });
     }
   }
 };
