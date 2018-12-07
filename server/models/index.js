@@ -5,7 +5,7 @@ module.exports = {
     get: function (callback) {
       let q = `SELECT users.username, rooms.roomname, messages.body FROM messages
                 INNER JOIN users ON users.id = messages.user_id
-                INNER JOIN rooms ON rooms.id = messages.room_id`;
+                INNER JOIN rooms ON rooms.id = messages.room_id;`;
       db.query(q, (err, results, fields) => {
         if (err) throw err;
         callback(null, results);
@@ -14,11 +14,15 @@ module.exports = {
     post: function (messageObj, callback) {
       // let q = null;
       // let q = `INSERT INTO messages VALUES (default, 1, 1, 'with the Fish', default);`;
-      let q = `INSERT INTO messages (body) VALUES ('${messageObj.message}')`;
-      
+      let q = `INSERT INTO messages (body) VALUES ("${messageObj.message}")`;
+      // let q = `INSERT INTO messages (user_id, room_id, body)
+      //             SELECT users.id, rooms.id, ${messageObj.message}
+      //             FROM users, rooms
+      //             WHERE users.username = ${messageObj.username}
+      //             AND rooms.roomname = ${messageObj.roomname};`;
       db.query(q, (err, data) => {
         if (err) throw new Error('error posting message');
-        console.log(data, 'post query to database');
+        console.log(data, 'post query to dcatabase');
         callback(null);
       });
     } 
