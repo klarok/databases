@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize');
 var Promise = require('bluebird');
 var models = require('../models');
 
@@ -12,9 +13,10 @@ module.exports = {
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       console.log(req.body, 'post messages');
-      models.messages.post(req.body, (err) => {
+      let qArgs = [req.body.username, req.body.roomname, req.body.message];
+      models.messages.post(qArgs, (err) => {
         if (err) throw err;
-        res.send('message posted');
+        res.sendStatus(201);
       });
     } // a function which handles posting a message to the database
   },
@@ -23,15 +25,15 @@ module.exports = {
     // Ditto as above
     // req.body.username = valjean
     get: function (req, res) {
-      models.users.get(req.body.username, (err) => {
+      models.users.get((err, usersData) => {
         if (err) throw err;
-        res.send('user get');
+        res.json(usersData);
       });
     },
     post: function (req, res) {
       models.users.post(req.body.username, (err) => {
         if (err) throw err;
-        res.send('added user');
+        res.sendStatus(201);
       });
     }
   }

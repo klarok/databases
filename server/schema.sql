@@ -8,21 +8,12 @@ CREATE TABLE users (
   username VARCHAR(20)
 );
 
-CREATE TABLE rooms (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  roomName VARCHAR(20)
-);
-
-
 CREATE TABLE messages (
   /* Describe your table here.*/
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   user_id INTEGER,
-  room_id INTEGER,
-  body TEXT,
-  created TIMESTAMP,
-  FOREIGN KEY(user_id) REFERENCES users(id),
-  FOREIGN KEY(room_id) REFERENCES rooms(id)
+  roomname VARCHAR(20),
+  body TEXT
 );
 
 /* Create other tables and define schemas for them here! */
@@ -34,8 +25,7 @@ CREATE TABLE messages (
 
 
 INSERT INTO users VALUES (default, 'Mrs. Peacock');
-INSERT INTO rooms VALUES (default, 'in the Conservatory');
-INSERT INTO messages VALUES (default, 1, 1, 'with the Candlestick', default);
+INSERT INTO messages VALUES (default, 1, 'in the Conservatory', 'with the Candlestick');
 INSERT INTO users VALUES (default, 'Colonel Mustard');
-INSERT INTO rooms VALUES (default, 'in the Dining Room');
-INSERT INTO messages VALUES (default, 2, 1, 'with the Noose', default);
+-- INSERT INTO rooms VALUES (default, 'in the Dining Room');
+INSERT INTO messages VALUES (default, 2, 'in the Conservatory', 'with the Noose');
